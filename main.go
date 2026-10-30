@@ -3,12 +3,13 @@ package main
 import "fmt"
 
 func main() {
-	a := 20
-	b := 6
+	age := 20
 
-	fmt.Println("a + b", a + b)
-	fmt.Println("a - b", a - b)
-	fmt.Println("a * b", a * b)
-	fmt.Println("a / b", float64(a) / float64(b))
-	fmt.Println("a % b", a % b)
+	if age >= 60 {
+		fmt.Println("Senior")
+	} else if age >= 18 {
+		fmt.Println("Adult")
+	} else {
+		fmt.Println("Minor")
+	}
 }
