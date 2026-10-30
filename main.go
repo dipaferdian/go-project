@@ -3,15 +3,20 @@ package main
 import "fmt"
 
 func main() {
-    numbers := []int{10, 20, 30}
-
-    numbers = append(numbers, 40)
-	numbers = append(numbers, 50)
-
-	for i := 0; i < len(numbers); i++ {
-		fmt.Println(numbers[i])
+	users := map[int]string{
+		1: "Dipa",
+		2: "Andi",
+		3: "Budi",
 	}
 
-    fmt.Println(len(numbers))
-	fmt.Println(cap(numbers))
+	fmt.Println(users[3])
+
+	delete(users, 2)
+
+	users[4] = "Rudi"
+
+	for _, value := range users {
+		fmt.Println(value)
+	}
+
 }
