@@ -3,14 +3,13 @@ package main
 import "fmt"
 
 func main() {
-	for i := 1; i <= 10; i++ {
 
-		if i%2 == 0 {
-			fmt.Println(i)
-			fmt.Println("Even")
-		} else {
-			fmt.Println(i)
-			fmt.Println("Odd")
-		}
+	numbers := [5]int{10, 20, 30, 40, 50}
+
+	for i := 0; i < len(numbers); i++ {
+		fmt.Println(numbers[i])
 	}
+
+	fmt.Println(numbers[0])
+	fmt.Println(numbers[4])
 }
