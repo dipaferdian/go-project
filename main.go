@@ -3,13 +3,16 @@ package main
 import "fmt"
 
 func main() {
-	age := 20
+	role := "admin"
 
-	if age >= 60 {
-		fmt.Println("Senior")
-	} else if age >= 18 {
-		fmt.Println("Adult")
-	} else {
-		fmt.Println("Minor")
+	switch role {
+	case "admin":
+		fmt.Println("Full Access")
+	case "editor":
+		fmt.Println("Can Edit")
+	case "viewer":
+		fmt.Println("Read Only")
+	default:
+		fmt.Println("Unknown role")
 	}
 }
