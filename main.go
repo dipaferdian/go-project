@@ -3,16 +3,14 @@ package main
 import "fmt"
 
 func main() {
-	role := "admin"
+	for i := 1; i <= 10; i++ {
 
-	switch role {
-	case "admin":
-		fmt.Println("Full Access")
-	case "editor":
-		fmt.Println("Can Edit")
-	case "viewer":
-		fmt.Println("Read Only")
-	default:
-		fmt.Println("Unknown role")
+		if i%2 == 0 {
+			fmt.Println(i)
+			fmt.Println("Even")
+		} else {
+			fmt.Println(i)
+			fmt.Println("Odd")
+		}
 	}
 }
