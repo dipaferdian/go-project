@@ -3,13 +3,12 @@ package main
 import "fmt"
 
 func main() {
-	const appName string = "Task Management API"
-	var totalUsers int
-	var isProduction bool
+	a := 20
+	b := 6
 
-	totalUsers = 10
-
-	fmt.Println("App name:", appName)
-	fmt.Println("totalUsers:", totalUsers)
-	fmt.Println("isProduction:", isProduction)
+	fmt.Println("a + b", a + b)
+	fmt.Println("a - b", a - b)
+	fmt.Println("a * b", a * b)
+	fmt.Println("a / b", float64(a) / float64(b))
+	fmt.Println("a % b", a % b)
 }
