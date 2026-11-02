@@ -4,13 +4,15 @@ import "fmt"
 
 func main() {
 
-	result := calculateArea(10, 5)
+	sum, substactrion, multilpy := calculate(10, 5)
 
-	fmt.Println("Area:", result)
+	fmt.Println("sum:", sum)
+	fmt.Println("substactrion:", substactrion)
+	fmt.Println("multilpy:", multilpy)
 
 }
 
-func calculateArea(width int, height int) int {
+func calculate(a int, b int) (int, int, int) {
 
-	return width * height
+	return a + b, a - b, a * b
 }

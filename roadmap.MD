@@ -4,9 +4,9 @@
 
 **Fondasi**
 
-- [ ] Variables dan data types
+- [ x ] Variables dan data types
 - [ ] Functions
-- [ ] Arrays, slices, maps
+- [ x ] Arrays, slices, maps
 - [ ] Structs
 - [ ] Pointers
 - [ ] Interfaces
