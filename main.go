@@ -4,15 +4,16 @@ import "fmt"
 
 func main() {
 
-	sum, substactrion, multilpy := calculate(10, 5)
+	area, perimeter := calculateRectangle(10, 5)
 
-	fmt.Println("sum:", sum)
-	fmt.Println("substactrion:", substactrion)
-	fmt.Println("multilpy:", multilpy)
+	fmt.Println("area:", area)
+	fmt.Println("perimeter:", perimeter)
 
 }
 
-func calculate(a int, b int) (int, int, int) {
+func calculateRectangle(width int, height int) (area int, perimeter int) {
+	area = width * height
+	perimeter = 2 * (width + height)
 
-	return a + b, a - b, a * b
+	return
 }
