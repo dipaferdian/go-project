@@ -4,9 +4,16 @@ import "fmt"
 
 func main() {
 
-	operation := func(name string) {
-		fmt.Println("Hello ", name)
-	}
+    greet := func(name string) string {
+        return "Hello " + name
+    }
 
-	operation("dipa")
+    result := execute(greet)
+
+	fmt.Println(result)
+}
+
+
+func execute(callback func(string) string) string {
+    return callback("dipa")
 }
