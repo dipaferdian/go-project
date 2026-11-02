@@ -3,20 +3,14 @@ package main
 import "fmt"
 
 func main() {
-	users := map[int]string{
-		1: "Dipa",
-		2: "Andi",
-		3: "Budi",
-	}
 
-	fmt.Println(users[3])
+	result := calculateArea(10, 5)
 
-	delete(users, 2)
+	fmt.Println("Area:", result)
 
-	users[4] = "Rudi"
+}
 
-	for _, value := range users {
-		fmt.Println(value)
-	}
+func calculateArea(width int, height int) int {
 
+	return width * height
 }
