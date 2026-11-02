@@ -4,16 +4,23 @@ import "fmt"
 
 func main() {
 
-	area, perimeter := calculateRectangle(10, 5)
+	average := calculateAverage(10, 20, 30, 40)
 
-	fmt.Println("area:", area)
-	fmt.Println("perimeter:", perimeter)
-
+	fmt.Println("average:", average)
 }
 
-func calculateRectangle(width int, height int) (area int, perimeter int) {
-	area = width * height
-	perimeter = 2 * (width + height)
+func calculateAverage(numbers ...int) float64 {
+	total := 0
 
-	return
+	if len(numbers) == 0 {
+		return float64(total)
+	}
+
+	for _, number := range numbers {
+		total += number
+	}
+
+	average := float64(total) / float64(len(numbers))
+
+	return float64(average)
 }
