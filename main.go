@@ -5,32 +5,36 @@ import (
 	"fmt"
 )
 
-func getProduct(id int) (string, error) {
-    if id == 0 {
-        return "", errors.New("product not found")
-    }
+var ErrProductNotFound = errors.New("product not found")
 
-    return "", nil
+func getProduct(id int) (string, error) {
+	if id == 0 {
+		return "", ErrProductNotFound
+	}
+
+	return "Car", nil
 }
 
 func getProductService(id int) (string, error) {
-    product, err := getProduct(id)
+	product, err := getProduct(id)
 
-    if err != nil {
-        return "", fmt.Errorf("get product service: %w", err)
-    }
+	if err != nil {
+		return "", fmt.Errorf("get product service: %w", err)
+	}
 
-    return product, nil
+	return product, nil
 }
 
 func main() {
 
-	ok, err := getProductService(0)
+	product, err := getProductService(0)
 
-	if err != nil {
-		fmt.Println(err.Error())
+	if errors.Is(err, ErrProductNotFound) {
+		fmt.Println("Product tidak ditemukan")
+	} else if err != nil {
+		fmt.Println("Error:", err)
 	} else {
-		fmt.Println(ok)
+		fmt.Println(product)
 	}
 
 }
