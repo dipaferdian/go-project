@@ -5,36 +5,31 @@ import (
 	"fmt"
 )
 
-var ErrProductNotFound = errors.New("product not found")
-
-func getProduct(id int) (string, error) {
-	if id == 0 {
-		return "", ErrProductNotFound
-	}
-
-	return "Car", nil
+type ValidationError struct {
+    Field   string
+    Message string
 }
 
-func getProductService(id int) (string, error) {
-	product, err := getProduct(id)
+func (e *ValidationError) Error() string {
+    return e.Field + ": " + e.Message
+}
 
-	if err != nil {
-		return "", fmt.Errorf("get product service: %w", err)
-	}
 
-	return product, nil
+func validateUser() error {
+    return &ValidationError{
+        Field:   "email",
+        Message: "invalid email format",
+    }
 }
 
 func main() {
+    err := validateUser()
 
-	product, err := getProductService(0)
+    var validationErr *ValidationError
 
-	if errors.Is(err, ErrProductNotFound) {
-		fmt.Println("Product tidak ditemukan")
-	} else if err != nil {
-		fmt.Println("Error:", err)
-	} else {
-		fmt.Println(product)
-	}
 
+    if errors.As(err, &validationErr) {
+        fmt.Println(validationErr.Field)
+        fmt.Println(validationErr.Message)
+    }
 }
