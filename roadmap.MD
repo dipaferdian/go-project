@@ -5,7 +5,7 @@
 **Fondasi**
 
 - [ x ] Variables dan data types
-- [ ] Functions
+- [ x ] Functions
 - [ x ] Arrays, slices, maps
 - [ ] Structs
 - [ ] Pointers

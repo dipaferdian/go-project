@@ -9,6 +9,10 @@ type Product struct {
     IsAvailable bool
 }
 
+func printProduct(product Product)  {
+    fmt.Println(product)
+}
+
 func main() {
 
     product := Product{
@@ -18,7 +22,5 @@ func main() {
         IsAvailable: true,
     }
 
-    product.Stock = 8
-
-    fmt.Println(product)
+    printProduct(product)
 }
