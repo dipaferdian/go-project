@@ -5,14 +5,19 @@ import "fmt"
 
 
 func printValue(value any) {
-    text, ok := value.(int)
-
-    if ok {
-        fmt.Println("Integer:", text)
-    } else {
-        fmt.Println("Not a Integer")
+    switch v := value.(type) {
+    case string:
+        fmt.Println("String:", v)
+    case int:
+        fmt.Println("Integer:", v)
+    case bool:
+        fmt.Println("Boolean:", v)
+    default:
+        fmt.Println("Unknown type")
     }
 }
+
+
 func main() {
     
     printValue("test")
