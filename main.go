@@ -2,18 +2,23 @@ package main
 
 import "fmt"
 
-func main() {
-
-    greet := func(name string) string {
-        return "Hello " + name
-    }
-
-    result := execute(greet)
-
-	fmt.Println(result)
+type Product struct {
+    Name string
+    Price float64
+    Stock int
+    IsAvailable bool
 }
 
+func main() {
 
-func execute(callback func(string) string) string {
-    return callback("dipa")
+    product := Product{
+        Name: "mACBOOK",
+        Price: 12.500000,
+        Stock: 12,
+        IsAvailable: true,
+    }
+
+    product.Stock = 8
+
+    fmt.Println(product)
 }
