@@ -4,10 +4,11 @@ import "fmt"
 
 func main() {
 
-	age := new(int)
+	var age *int
 
-	*age = 100
-
-	fmt.Println(age)
-	fmt.Println(*age)
+    if age == nil {
+        fmt.Println("Pointer is nil")
+    }else{
+        fmt.Println(*age)
+    }
 }
