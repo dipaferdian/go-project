@@ -1,21 +1,39 @@
 package main
 
 import "fmt"
-type User struct {
-    Name string
-    Age int
+
+
+type Payment interface {
+    Pay()
+}
+
+type CreditCard struct {
+    CardNumber string
+}
+
+type EWallet struct {
+    Provider string
+}
+
+func (c CreditCard) Pay()  {
+    fmt.Println("Payment using Credit Card")
+}
+
+func (e EWallet) Pay()  {
+    fmt.Println("Payment using E-Wallet")
 }
 
 func main() {
-    var user *User
-
-    if user == nil {
-
-        user = &User{
-            Name: "Mac",
-            Age: 12,
-        }
-
-        fmt.Println(*user)
+    
+    creditCard := CreditCard{
+        CardNumber: "09121213218",
     }
+
+    ewallet := EWallet{
+        Provider: "ovo",
+    }
+
+    creditCard.Pay();
+    ewallet.Pay()
+    
 }
