@@ -8,7 +8,7 @@
 - [ x ] Functions
 - [ x ] Arrays, slices, maps
 - [ x ] Structs
-- [ ] Pointers
+- [ x ] Pointers
 - [ ] Interfaces
 - [ ] Error handling
 - [ ] Packages dan modules
