@@ -1,14 +1,21 @@
 package main
 
 import "fmt"
+type User struct {
+    Name string
+    Age int
+}
 
 func main() {
+    var user *User
 
-	var age *int
+    if user == nil {
 
-    if age == nil {
-        fmt.Println("Pointer is nil")
-    }else{
-        fmt.Println(*age)
+        user = &User{
+            Name: "Mac",
+            Age: 12,
+        }
+
+        fmt.Println(*user)
     }
 }
