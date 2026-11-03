@@ -3,41 +3,19 @@ package main
 import "fmt"
 
 
-type Payment interface {
-    Pay()
-}
 
-type CreditCard struct {
-    CardNumber string
-}
+func printValue(value any) {
+    text, ok := value.(int)
 
-type EWallet struct {
-    Provider string
+    if ok {
+        fmt.Println("Integer:", text)
+    } else {
+        fmt.Println("Not a Integer")
+    }
 }
-
-func (c CreditCard) Pay()  {
-    fmt.Println("Payment using Credit Card")
-}
-
-func (e EWallet) Pay()  {
-    fmt.Println("Payment using E-Wallet")
-}
-
-func processPayment(payment Payment) {
-    payment.Pay()
-}
-
 func main() {
     
-    creditCard := CreditCard{
-        CardNumber: "09121213218",
-    }
-
-    ewallet := EWallet{
-        Provider: "ovo",
-    }
-
-    processPayment(creditCard)
-    processPayment(ewallet)
+    printValue("test")
+    printValue(12)
     
 }
