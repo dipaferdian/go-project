@@ -23,6 +23,10 @@ func (e EWallet) Pay()  {
     fmt.Println("Payment using E-Wallet")
 }
 
+func processPayment(payment Payment) {
+    payment.Pay()
+}
+
 func main() {
     
     creditCard := CreditCard{
@@ -33,7 +37,7 @@ func main() {
         Provider: "ovo",
     }
 
-    creditCard.Pay();
-    ewallet.Pay()
+    processPayment(creditCard)
+    processPayment(ewallet)
     
 }
