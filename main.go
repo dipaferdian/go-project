@@ -4,23 +4,21 @@ import "fmt"
 
 type Product struct {
     Name string
-    Price float64
     Stock int
-    IsAvailable bool
 }
 
-func printProduct(product Product)  {
-    fmt.Println(product)
+func updateStock(product *Product)  {
+    product.Stock = 20
 }
 
 func main() {
 
     product := Product{
-        Name: "mACBOOK",
-        Price: 12.500000,
+        Name: "Mac",
         Stock: 12,
-        IsAvailable: true,
     }
 
-    printProduct(product)
+    updateStock(&product)
+
+    fmt.Println(product.Stock)
 }

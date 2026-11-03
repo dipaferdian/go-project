@@ -7,7 +7,7 @@
 - [ x ] Variables dan data types
 - [ x ] Functions
 - [ x ] Arrays, slices, maps
-- [ ] Structs
+- [ x ] Structs
 - [ ] Pointers
 - [ ] Interfaces
 - [ ] Error handling
