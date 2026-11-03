@@ -10,7 +10,7 @@
 - [ x ] Structs
 - [ x ] Pointers
 - [ x ] Interfaces
-- [ ] Error handling
+- [ x ] Error handling
 - [ ] Packages dan modules
 
 **Target:** Mampu menulis program Go tanpa bergantung pada tutorial.
