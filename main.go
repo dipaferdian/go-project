@@ -2,23 +2,12 @@ package main
 
 import "fmt"
 
-type Product struct {
-    Name string
-    Stock int
-}
-
-func updateStock(product *Product)  {
-    product.Stock = 20
-}
-
 func main() {
 
-    product := Product{
-        Name: "Mac",
-        Stock: 12,
-    }
+	age := new(int)
 
-    updateStock(&product)
+	*age = 100
 
-    fmt.Println(product.Stock)
+	fmt.Println(age)
+	fmt.Println(*age)
 }
