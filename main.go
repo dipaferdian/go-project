@@ -1,26 +1,27 @@
 package main
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
+func getProduct(id int) (string, error) {
 
-
-func printValue(value any) {
-    switch v := value.(type) {
-    case string:
-        fmt.Println("String:", v)
-    case int:
-        fmt.Println("Integer:", v)
-    case bool:
-        fmt.Println("Boolean:", v)
-    default:
-        fmt.Println("Unknown type")
-    }
+	if id == 0 {
+		return "", errors.New("product not found")
+	} else {
+		return "Car", nil
+	}
 }
 
-
 func main() {
-    
-    printValue("test")
-    printValue(12)
-    
+
+	ok, err := getProduct(1)
+
+	if err != nil {
+		fmt.Println(err.Error())
+	} else {
+		fmt.Println(ok)
+	}
+
 }
