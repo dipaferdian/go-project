@@ -1,12 +1,34 @@
 package main
 
-import (
-	"fmt"
-	"go-project/user"
-)
+import "fmt"
+
+type Product struct {
+    Name  string
+    Price float64
+    Stock int
+}
+
+
+func (p *Product) UpdateStock(stock int) int  {
+    p.Stock = stock
+    return p.Stock
+}
+
+func (p Product) GetInfo() string {
+    p.Name = "Iphone"
+
+    return p.Name
+}
+
 func main() {
     
-    result := user.NewUser("Dipa", 29)
+  product := Product{
+    Name: "Samsung",
+    Price: 20,
+    Stock: 2,
+  }
 
-    fmt.Println(result)
+    fmt.Println(product.GetInfo())
+    fmt.Println(product.UpdateStock(1))
+    fmt.Println(product.Stock)
 }
