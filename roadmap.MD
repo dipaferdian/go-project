@@ -19,7 +19,7 @@
 
 ## 2. Tahap 2 — Intermediate Go
 
-- [ ] Methods dan receivers
+- [ x ] Methods dan receivers
 - [ ] Interfaces dan composition
 - [ ] Goroutines
 - [ ] Channels
