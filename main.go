@@ -1,31 +1,45 @@
 package main
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
-type Notifier interface {
-    Send() string
+type Reader interface {
+    Read() string
 }
 
-type EmailNotifier struct {
-    Email string
+type Writer interface {
+    Write(data string) error
 }
 
-// Implementasikan method Send() menggunakan pointer receiver
+type Storage interface {
+    Reader
+    Writer
+}
 
-func (e *EmailNotifier) Send() string  {
-    return e.Email
+type FileStorage struct {
+    Name string
+}
+
+func (f FileStorage) Read() string {
+    return "Reading " + f.Name
+}
+
+func (f FileStorage) Write(data string) error {
+    return errors.New(data)
+}
+
+func processFile(storage Storage) {
+    fmt.Println(storage.Read())
+    fmt.Println(storage.Write("error"))
 }
 
 func main() {
-    email := EmailNotifier{
-        Email: "user@example.com",
+ file_storage := FileStorage{
+        Name: "document.txt",
     }
 
-    var notifier Notifier
 
-    // Assign pointer EmailNotifier ke notifier
-
-    notifier = &email
-
-    fmt.Println(notifier.Send())
+    processFile(file_storage)
 }
