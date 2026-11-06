@@ -20,7 +20,7 @@
 ## 2. Tahap 2 — Intermediate Go
 
 - [ x ] Methods dan receivers
-- [ ] Interfaces dan composition
+- [ x ] Interfaces dan composition
 - [ ] Goroutines
 - [ ] Channels
 - [ ] Mutex dan WaitGroup
