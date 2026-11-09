@@ -21,7 +21,7 @@
 
 - [ x ] Methods dan receivers
 - [ x ] Interfaces dan composition
-- [ ] Goroutines
+- [ x ] Goroutines
 - [ ] Channels
 - [ ] Mutex dan WaitGroup
 - [ ] Context

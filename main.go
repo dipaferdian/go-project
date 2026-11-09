@@ -1,44 +1,23 @@
 package main
 
-import (
-	"fmt"
-	"sync"
-)
+import "fmt"
 
 
-type Task struct {
-  Name string
-}
-
-func (task Task) Run(wg *sync.WaitGroup) {
-  defer wg.Done()
-
-  fmt.Println("Running:", task.Name)
+func sendNumbers(ch chan int, value int) {
+    ch <- value
 }
 
 func main() {
-    var wg sync.WaitGroup
 
-    wg.Add(3)
+  ch := make(chan int)
 
-    task1 := Task{
-      Name: "Send Email",
-    }
-
-    task2 := Task{
-      Name: "Process Payment",
-    }
-
-    task3 := Task{
-      Name: "Generate Report",
-    }
-
-    go task1.Run(&wg)
-    go task2.Run(&wg)
-    go task3.Run(&wg)
+  go sendNumbers(ch, 10)
+  go sendNumbers(ch, 20)
+  go sendNumbers(ch, 30)
 
 
-    wg.Wait()
+  fmt.Println(<-ch)
+  fmt.Println(<-ch)
+  fmt.Println(<-ch)
 
-    fmt.Println("All tasks finished")
 }
