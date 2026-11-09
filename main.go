@@ -1,45 +1,21 @@
 package main
 
 import (
-	"errors"
 	"fmt"
+	"time"
 )
 
-type Reader interface {
-    Read() string
-}
 
-type Writer interface {
-    Write(data string) error
-}
-
-type Storage interface {
-    Reader
-    Writer
-}
-
-type FileStorage struct {
-    Name string
-}
-
-func (f FileStorage) Read() string {
-    return "Reading " + f.Name
-}
-
-func (f FileStorage) Write(data string) error {
-    return errors.New(data)
-}
-
-func processFile(storage Storage) {
-    fmt.Println(storage.Read())
-    fmt.Println(storage.Write("error"))
+func printMessage(message string)  {
+    fmt.Println(message)
 }
 
 func main() {
- file_storage := FileStorage{
-        Name: "document.txt",
-    }
+  go printMessage("test1")
+  go printMessage("test2")
+  go printMessage("test2")
 
+  time.Sleep(1 * time.Second)
 
-    processFile(file_storage)
+  fmt.Println("Main finished")
 }
