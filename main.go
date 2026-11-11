@@ -1,25 +1,38 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sync"
+)
 
-func sendData() chan int {
-    ch := make(chan int, 4)
 
-    ch <- 10
-    ch <- 20
-    ch <- 30
-    ch <- 40
+func sendData(ch chan<- int, wg *sync.WaitGroup){
+  defer wg.Done()
 
-    close(ch)
+  ch <- 20
+  ch <- 30
+  ch <- 40
 
-    return ch
+  close(ch)
+}
+
+func receiveData(ch <-chan int, wg *sync.WaitGroup)  {
+  defer wg.Done()
+
+  for value := range ch {
+    fmt.Println(value)
+  }
 }
 
 func main() {
+  var wg sync.WaitGroup
 
-  result := sendData()
+  wg.Add(2)
 
-  for value := range result {
-    fmt.Println(value)
-  }
+  ch := make(chan int, 3)
+
+  go sendData(ch, &wg)
+  go receiveData(ch, &wg)
+
+  wg.Wait()
 }
