@@ -2,22 +2,24 @@ package main
 
 import "fmt"
 
+func sendData() chan int {
+    ch := make(chan int, 4)
+
+    ch <- 10
+    ch <- 20
+    ch <- 30
+    ch <- 40
+
+    close(ch)
+
+    return ch
+}
 
 func main() {
 
-  ch := make(chan string, 2)
+  result := sendData()
 
-  ch <- "test1"
-  ch <- "test2"
-
-  fmt.Println(len(ch))
-  fmt.Println(cap(ch))
-
-  fmt.Println(<-ch)
-  fmt.Println(<-ch)
-
-  fmt.Println(len(ch))
-  fmt.Println(cap(ch))
-
-
+  for value := range result {
+    fmt.Println(value)
+  }
 }
