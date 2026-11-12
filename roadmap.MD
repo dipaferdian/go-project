@@ -23,7 +23,7 @@
 - [x] Interfaces dan composition
 - [x] Goroutines
 - [x] Channels
-- [ ] Mutex dan WaitGroup
+- [x] Mutex dan WaitGroup
 - [ ] Context
 - [ ] Defer, panic, recover
 
