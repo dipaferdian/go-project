@@ -2,37 +2,24 @@ package main
 
 import (
 	"fmt"
-	"sync"
 )
 
-
-func sendData(ch chan<- int, wg *sync.WaitGroup){
-  defer wg.Done()
-
-  ch <- 20
-  ch <- 30
-  ch <- 40
-
-  close(ch)
-}
-
-func receiveData(ch <-chan int, wg *sync.WaitGroup)  {
-  defer wg.Done()
-
-  for value := range ch {
-    fmt.Println(value)
-  }
-}
-
 func main() {
-  var wg sync.WaitGroup
+    ch1 := make(chan string, 1)
+    ch2 := make(chan string, 1)
 
-  wg.Add(2)
 
-  ch := make(chan int, 3)
+    ch1 <- "Message from channel 1"
+    ch2 <- "Message from channel 2"
 
-  go sendData(ch, &wg)
-  go receiveData(ch, &wg)
+    select {
+    case message := <-ch1:
+        fmt.Println(message)
 
-  wg.Wait()
+    case message := <-ch2:
+        fmt.Println(message)
+
+    default:
+      fmt.Println("No receive data")
+    }
 }
