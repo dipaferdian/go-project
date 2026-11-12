@@ -4,14 +4,14 @@
 
 **Fondasi**
 
-- [ x ] Variables dan data types
-- [ x ] Functions
-- [ x ] Arrays, slices, maps
-- [ x ] Structs
-- [ x ] Pointers
-- [ x ] Interfaces
-- [ x ] Error handling
-- [ x ] Packages dan modules
+- [x] Variables dan data types
+- [x] Functions
+- [x] Arrays, slices, maps
+- [x] Structs
+- [x] Pointers
+- [x] Interfaces
+- [x] Error handling
+- [x] Packages dan modules
 
 **Target:** Mampu menulis program Go tanpa bergantung pada tutorial.
 
@@ -19,10 +19,10 @@
 
 ## 2. Tahap 2 — Intermediate Go
 
-- [ x ] Methods dan receivers
-- [ x ] Interfaces dan composition
-- [ x ] Goroutines
-- [ ] Channels
+- [x] Methods dan receivers
+- [x] Interfaces dan composition
+- [x] Goroutines
+- [x] Channels
 - [ ] Mutex dan WaitGroup
 - [ ] Context
 - [ ] Defer, panic, recover

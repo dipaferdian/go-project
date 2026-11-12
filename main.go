@@ -2,24 +2,35 @@ package main
 
 import (
 	"fmt"
+	"sync"
 )
 
+type Inventory struct {
+  Stock int
+  mu sync.Mutex
+}
+
+func (inventory *Inventory) AddStock(amount int, wg *sync.WaitGroup){
+  inventory.mu.Lock()
+  defer wg.Done()
+  defer inventory.mu.Unlock()
+
+  inventory.Stock += amount
+}
+
 func main() {
-    ch1 := make(chan string, 1)
-    ch2 := make(chan string, 1)
+    var wg sync.WaitGroup  
 
+    wg.Add(5)
+    inventory := &Inventory{}
 
-    ch1 <- "Message from channel 1"
-    ch2 <- "Message from channel 2"
+    go inventory.AddStock(10, &wg)
+    go inventory.AddStock(10, &wg)
+    go inventory.AddStock(10, &wg)
+    go inventory.AddStock(10, &wg)
+    go inventory.AddStock(10, &wg)
 
-    select {
-    case message := <-ch1:
-        fmt.Println(message)
+    wg.Wait()
 
-    case message := <-ch2:
-        fmt.Println(message)
-
-    default:
-      fmt.Println("No receive data")
-    }
+    fmt.Println(inventory.Stock)
 }
