@@ -1,36 +1,36 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"sync"
+	"time"
 )
 
-type Inventory struct {
-  Stock int
-  mu sync.Mutex
-}
-
-func (inventory *Inventory) AddStock(amount int, wg *sync.WaitGroup){
-  inventory.mu.Lock()
+func worker(ctx context.Context, wg *sync.WaitGroup){
   defer wg.Done()
-  defer inventory.mu.Unlock()
 
-  inventory.Stock += amount
+  select {
+  case <-ctx.Done():
+    fmt.Println("Worker stopped")
+  case <-time.After(3 * time.Second):
+    fmt.Println("Worker completed")
+  }
 }
 
 func main() {
-    var wg sync.WaitGroup  
+  var wg sync.WaitGroup
 
-    wg.Add(5)
-    inventory := &Inventory{}
+  wg.Add(1)
 
-    go inventory.AddStock(10, &wg)
-    go inventory.AddStock(10, &wg)
-    go inventory.AddStock(10, &wg)
-    go inventory.AddStock(10, &wg)
-    go inventory.AddStock(10, &wg)
+  ctx, cancel := context.WithCancel(context.Background())
+  defer cancel()
 
-    wg.Wait()
+  go worker(ctx, &wg)
 
-    fmt.Println(inventory.Stock)
+  time.Sleep(1 * time.Second)
+
+  cancel()
+
+  wg.Wait()
 }
