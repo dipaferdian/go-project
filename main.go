@@ -35,6 +35,18 @@ func CreateProduct(w http.ResponseWriter, r *http.Request)  {
       return
    }
 
+   if product.Name == "" {
+    http.Error(w, "Name is required", http.StatusBadRequest)
+
+    return
+   }
+
+   if product.Price <= 0 {
+    http.Error(w, "Price must be greater than 0", http.StatusBadRequest)
+
+    return
+   }
+
    w.Header().Set("Content-Type", "application/json")
    w.WriteHeader(http.StatusCreated)
    json.NewEncoder(w).Encode(product)
