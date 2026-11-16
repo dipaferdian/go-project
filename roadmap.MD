@@ -24,8 +24,8 @@
 - [x] Goroutines
 - [x] Channels
 - [x] Mutex dan WaitGroup
-- [ ] Context
-- [ ] Defer, panic, recover
+- [x] Context
+- [x] Defer, panic, recover
 
 **Target:** Memahami karakteristik Go yang berbeda dari JavaScript dan Ruby.
 
