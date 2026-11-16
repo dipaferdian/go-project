@@ -2,27 +2,15 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 )
 
-func processTask(){
-
-  defer fmt.Println("Cleanup 1")
-  defer fmt.Println("Cleanup 2")
-
-    defer func() {
-        result := recover()
-
-        if result != nil {
-            fmt.Println("Recovered:", result)
-        }
-    }()
-
-    fmt.Println("Task started")
-
-    panic("task failed")
+func ProductRequest(w http.ResponseWriter, r *http.Request){
+  fmt.Fprintln(w, "Product API is running")
 }
 
 func main() {
-  processTask()
-  fmt.Println("Main continues")
+    http.HandleFunc("/products", ProductRequest)
+
+    http.ListenAndServe(":8080", nil)
 }
