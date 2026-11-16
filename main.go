@@ -2,8 +2,10 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 )
+
 
 type Product struct {
   ID int          `json:"id"`
@@ -52,9 +54,30 @@ func CreateProduct(w http.ResponseWriter, r *http.Request)  {
    json.NewEncoder(w).Encode(product)
 }
 
-func main() {
-    http.HandleFunc("GET /products", GetProduct)
-    http.HandleFunc("POST /products", CreateProduct)
+func GetProductDetail(w http.ResponseWriter, r *http.Request)  {
+  id := r.PathValue("id")
+  fmt.Fprintln(w, id)
+}
 
-    http.ListenAndServe(":8080", nil)
+func UpdateProduct(w http.ResponseWriter, r *http.Request)  {
+  id := r.PathValue("id")
+  fmt.Fprintln(w, id)
+}
+
+func DeleteProduct(w http.ResponseWriter, r *http.Request)  {
+  id := r.PathValue("id")
+  fmt.Fprintln(w, id)
+}
+
+func main() {
+
+    mux := http.NewServeMux()
+
+    mux.HandleFunc("GET /products", GetProduct)
+    mux.HandleFunc("POST /products", CreateProduct)
+    mux.HandleFunc("GET /products/{id}", GetProductDetail)
+    mux.HandleFunc("PUT /products/{id}", UpdateProduct)
+    mux.HandleFunc("DELETE /products/{id}", DeleteProduct)
+
+    http.ListenAndServe(":8080", mux)
 }
