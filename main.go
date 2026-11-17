@@ -2,8 +2,10 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
+	"strconv"
 )
 
 
@@ -18,6 +20,9 @@ type ErrorResponse struct {
     Status int    `json:"status"`
 }
 
+var ErrProductNotFound = errors.New("product not found")
+var ErrUnauthorized = errors.New("unauthorized")
+
 
 func GetProduct(w http.ResponseWriter, r *http.Request) {
     product := &Product{
@@ -25,6 +30,17 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
       Name: "Car",
       Price: 200000,
     }
+
+     id, err := strconv.Atoi(r.URL.Query().Get("id"))
+
+     if err != nil {
+      writeJSON(w, http.StatusBadRequest, ErrorResponse{Error: "invalid request", Status: http.StatusBadRequest})
+     }
+
+     if id == 0 {
+       writeJSON(w, http.StatusNotFound, ErrorResponse{Error: ErrProductNotFound.Error(), Status: http.StatusNotFound})
+       return
+     }
 
     w.Header().Set("Content-Type", "application/json")
     w.WriteHeader(http.StatusOK)
@@ -118,6 +134,15 @@ func writeJSON(w http.ResponseWriter, status int, data any) error {
     return json.NewEncoder(w).Encode(data)
 }
 
+
+func getProduct(id int) (string, error){
+  if id == 0 {
+    return "", ErrProductNotFound
+  }
+
+  return "Car", nil
+}
+
 func main() {
 
     mux := http.NewServeMux()
@@ -130,6 +155,14 @@ func main() {
     mux.Handle("DELETE /products/{id}", AuthMiddleware(http.HandlerFunc(DeleteProduct)))
 
     handler := CORSMiddleware(LoggingMiddleware(mux))
+
+   result, err := getProduct(1)
+
+   if errors.Is(err, ErrProductNotFound){
+     fmt.Println("produk tidak ditemukan")
+   }else{
+     fmt.Println(result)
+   }
 
     http.ListenAndServe(":8080", handler)
 }
