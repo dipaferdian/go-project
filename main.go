@@ -90,6 +90,21 @@ func AuthMiddleware(next http.Handler) http.Handler {
     })
 }
 
+func CORSMiddleware(next http.Handler) http.Handler {
+    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+        w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+        w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+        w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
+
+        if r.Method == http.MethodOptions {
+            w.WriteHeader(http.StatusNoContent)
+            return
+        }
+
+        next.ServeHTTP(w, r)
+    })
+}
+
 func main() {
 
     mux := http.NewServeMux()
@@ -101,7 +116,7 @@ func main() {
     mux.Handle("PUT /products/{id}", AuthMiddleware(http.HandlerFunc(UpdateProduct)))
     mux.Handle("DELETE /products/{id}", AuthMiddleware(http.HandlerFunc(DeleteProduct)))
 
-    handler := LoggingMiddleware(mux)
+    handler := CORSMiddleware(LoggingMiddleware(mux))
 
     http.ListenAndServe(":8080", handler)
 }
