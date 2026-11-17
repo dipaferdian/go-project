@@ -13,6 +13,12 @@ type Product struct {
   Price float64   `json:"price"`
 }
 
+type ErrorResponse struct {
+    Error  string `json:"error"`
+    Status int    `json:"status"`
+}
+
+
 func GetProduct(w http.ResponseWriter, r *http.Request) {
     product := &Product{
       ID: 1,
@@ -32,19 +38,19 @@ func CreateProduct(w http.ResponseWriter, r *http.Request)  {
    err := json.NewDecoder(r.Body).Decode(&product)
 
    if err != nil {
-      http.Error(w, "Invalid Json" ,http.StatusBadRequest)
+      writeJSON(w, http.StatusBadRequest, "Invalid Json")
 
       return
    }
 
    if product.Name == "" {
-    http.Error(w, "Name is required", http.StatusBadRequest)
+    writeJSON(w, http.StatusBadRequest, "Name is required")
 
     return
    }
 
    if product.Price <= 0 {
-    http.Error(w, "Price must be greater than 0", http.StatusBadRequest)
+    writeJSON(w, http.StatusBadRequest, "Price must be greater than 0")
 
     return
    }
@@ -82,7 +88,7 @@ func AuthMiddleware(next http.Handler) http.Handler {
         token := r.Header.Get("Authorization")
 
         if token != "Bearer secret123" {
-            http.Error(w, "Unauthorized", http.StatusUnauthorized)
+            writeJSON(w, http.StatusUnauthorized, ErrorResponse{Error: "Unauthorized", Status: 401})
             return
         }
 
@@ -103,6 +109,13 @@ func CORSMiddleware(next http.Handler) http.Handler {
 
         next.ServeHTTP(w, r)
     })
+}
+
+func writeJSON(w http.ResponseWriter, status int, data any) error {
+    w.Header().Set("Content-Type", "application/json")
+    w.WriteHeader(status)
+
+    return json.NewEncoder(w).Encode(data)
 }
 
 func main() {
