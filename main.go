@@ -137,7 +137,8 @@ func writeJSON(w http.ResponseWriter, status int, data any) error {
 
 func getProduct(id int) (string, error){
   if id == 0 {
-    return "", ErrProductNotFound
+    err := fmt.Errorf("get product failed: %w", ErrProductNotFound)
+    return "", err
   }
 
   return "Car", nil
@@ -156,7 +157,7 @@ func main() {
 
     handler := CORSMiddleware(LoggingMiddleware(mux))
 
-   result, err := getProduct(1)
+   result, err := getProduct(0)
 
    if errors.Is(err, ErrProductNotFound){
      fmt.Println("produk tidak ditemukan")
