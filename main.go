@@ -20,6 +20,10 @@ type ErrorResponse struct {
     Status int    `json:"status"`
 }
 
+type ValidationError struct {
+    Message string
+}
+
 var ErrProductNotFound = errors.New("product not found")
 var ErrUnauthorized = errors.New("unauthorized")
 
@@ -134,6 +138,9 @@ func writeJSON(w http.ResponseWriter, status int, data any) error {
     return json.NewEncoder(w).Encode(data)
 }
 
+func (e *ValidationError) Error() string {
+    return e.Message
+}
 
 func getProduct(id int) (string, error){
   if id == 0 {
@@ -144,7 +151,17 @@ func getProduct(id int) (string, error){
   return "Car", nil
 }
 
+func validateProduct(name string) error {
+
+  if name == "" {
+    return &ValidationError{Message: "Product name is required"}
+  }
+
+  return nil
+}
+
 func main() {
+   var validationErr *ValidationError
 
     mux := http.NewServeMux()
 
@@ -163,6 +180,12 @@ func main() {
      fmt.Println("produk tidak ditemukan")
    }else{
      fmt.Println(result)
+   }
+
+   validateErrProduct := validateProduct("")
+
+   if errors.As(validateErrProduct, &validationErr) {
+      fmt.Println(validationErr.Message)
    }
 
     http.ListenAndServe(":8080", handler)
