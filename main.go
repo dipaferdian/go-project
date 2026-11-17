@@ -69,6 +69,14 @@ func DeleteProduct(w http.ResponseWriter, r *http.Request)  {
   fmt.Fprintln(w, id)
 }
 
+func LoggingMiddleware(next http.Handler) http.Handler {
+    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+        fmt.Println("Request:", r.Method, r.URL.Path)
+
+        next.ServeHTTP(w, r)
+    })
+}
+
 func main() {
 
     mux := http.NewServeMux()
@@ -79,5 +87,7 @@ func main() {
     mux.HandleFunc("PUT /products/{id}", UpdateProduct)
     mux.HandleFunc("DELETE /products/{id}", DeleteProduct)
 
-    http.ListenAndServe(":8080", mux)
+    handler := LoggingMiddleware(mux)
+
+    http.ListenAndServe(":8080", handler)
 }
