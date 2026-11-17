@@ -77,6 +77,19 @@ func LoggingMiddleware(next http.Handler) http.Handler {
     })
 }
 
+func AuthMiddleware(next http.Handler) http.Handler {
+    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+        token := r.Header.Get("Authorization")
+
+        if token != "Bearer secret123" {
+            http.Error(w, "Unauthorized", http.StatusUnauthorized)
+            return
+        }
+
+        next.ServeHTTP(w, r)
+    })
+}
+
 func main() {
 
     mux := http.NewServeMux()
@@ -87,7 +100,7 @@ func main() {
     mux.HandleFunc("PUT /products/{id}", UpdateProduct)
     mux.HandleFunc("DELETE /products/{id}", DeleteProduct)
 
-    handler := LoggingMiddleware(mux)
-
+    handler := LoggingMiddleware(AuthMiddleware(mux))
+    
     http.ListenAndServe(":8080", handler)
 }
