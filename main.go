@@ -95,12 +95,13 @@ func main() {
     mux := http.NewServeMux()
 
     mux.HandleFunc("GET /products", GetProduct)
-    mux.HandleFunc("POST /products", CreateProduct)
     mux.HandleFunc("GET /products/{id}", GetProductDetail)
-    mux.HandleFunc("PUT /products/{id}", UpdateProduct)
-    mux.HandleFunc("DELETE /products/{id}", DeleteProduct)
 
-    handler := LoggingMiddleware(AuthMiddleware(mux))
-    
+    mux.Handle("POST /products", AuthMiddleware(http.HandlerFunc(CreateProduct)))
+    mux.Handle("PUT /products/{id}", AuthMiddleware(http.HandlerFunc(UpdateProduct)))
+    mux.Handle("DELETE /products/{id}", AuthMiddleware(http.HandlerFunc(DeleteProduct)))
+
+    handler := LoggingMiddleware(mux)
+
     http.ListenAndServe(":8080", handler)
 }
