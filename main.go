@@ -4,8 +4,12 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"go-project/database"
+	"log"
 	"net/http"
 	"strconv"
+
+	"github.com/joho/godotenv"
 )
 
 
@@ -187,6 +191,18 @@ func main() {
    if errors.As(validateErrProduct, &validationErr) {
       fmt.Println(validationErr.Message)
    }
+
+    if err := godotenv.Load(); err != nil {
+        log.Fatal("Error loading .env file:", err)
+    }
+
+    db, err := database.Connect()
+    if err != nil {
+        log.Fatal("Database connection failed:", err)
+    }
+    defer db.Close()
+
+    log.Println("Database connected successfully")
 
     http.ListenAndServe(":8080", handler)
 }

@@ -1,0 +1,12 @@
+CREATE TABLE products (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    price NUMERIC(12, 2) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+
+INSERT INTO products (name, price) VALUES
+('Laptop', 12000000),
+('Keyboard', 500000),
+('Mouse', 200000);
